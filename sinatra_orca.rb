@@ -24,6 +24,32 @@ opt = {
 }
 
 get '/' do
-  @patiens = list_patiens(opt)
+  @patients = list_patients(opt)
   haml :index
+end
+
+get '/register' do
+  haml :register
+end
+
+post '/register' do
+  @patient = params
+  @id,@error = register_patient(opt,@patient)
+  if @error
+    haml :register
+  else
+    haml :register_result
+  end
+end
+
+get '/delete' do
+  pp params
+  @patient = params
+  haml :delete
+end
+
+post '/delete' do
+  @params = params
+  @id,@error = delete_patient(opt,@params)
+  redirect to '/'
 end
