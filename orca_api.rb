@@ -135,3 +135,24 @@ def delete_patient(opt,params)
   id = pinfo["Patient_ID"]
   [id,"削除しました"]
 end
+
+def clean_patient(opt,params)
+  s = params['start'].to_i
+  e = params['end'].to_i
+  pinfo = list_patients(opt)
+  rets = []
+  pinfo.each do |pt|
+    para = {
+      'id' => pt['Patient_ID'],
+      'whole_name' => pt['WholeName'],
+      'whole_name_kana' => pt['WholeName_inKana'],
+      'birth_date' => pt['BirthDate'],
+      'sex' => pt['Sex'],
+    }
+    id = para['id'].to_i
+    if s <= id && id <= e
+      rets << delete_patient(opt,para)
+    end
+  end
+  "お掃除しました #{rets.join(' ')}"
+end

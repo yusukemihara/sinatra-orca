@@ -94,3 +94,12 @@ end
 get '/modify' do
   redirect to "/"
 end
+
+get '/clean' do
+  haml :clean
+end
+
+post '/clean' do
+  session['message'] = clean_patient(opt,params)
+  redirect to "/"
+end
