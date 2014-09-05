@@ -90,3 +90,7 @@ post '/delete' do
   session['message'] = @error
   redirect to "/"
 end
+
+get '/modify' do
+  redirect to "/"
+end
